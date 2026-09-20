@@ -183,10 +183,25 @@
                                 </select>
                                 <span class="form-error" aria-live="polite"></span>
                             </div>
-                            <div class="form-field form-field--full">
-                                <label for="f-date">Preferred date <span class="text-soft">(optional)</span></label>
+                            <div class="form-field">
+                                <label for="f-date">Date of the day <span class="text-soft">(optional)</span></label>
                                 <input type="date" id="f-date" name="date">
                                 <span class="form-error" aria-live="polite"></span>
+                            </div>
+                            <div class="form-field">
+                                <label for="f-place">Where will it be? <span class="text-soft">(optional)</span></label>
+                                <input type="text" id="f-place" name="place" autocomplete="off" placeholder="Venue, town or at home">
+                                <span class="form-error" aria-live="polite"></span>
+                            </div>
+                            <div class="form-field form-field--full">
+                                <span class="form-field__legend" id="f-heard-label">How did you come across us? <span class="text-soft">(optional)</span></span>
+                                <div class="chip-group" role="group" aria-labelledby="f-heard-label">
+                                    <label class="chip"><input type="radio" name="heard" value="Instagram"><span>Instagram</span></label>
+                                    <label class="chip"><input type="radio" name="heard" value="Google or Maps"><span>Google or Maps</span></label>
+                                    <label class="chip"><input type="radio" name="heard" value="A friend or family"><span>A friend or family</span></label>
+                                    <label class="chip"><input type="radio" name="heard" value="At a wedding we photographed"><span>At a wedding</span></label>
+                                    <label class="chip"><input type="radio" name="heard" value="Somewhere else"><span>Somewhere else</span></label>
+                                </div>
                             </div>
                             <div class="form-field form-field--full">
                                 <label for="f-message">Message</label>
@@ -207,8 +222,45 @@
             </div>
         </section>
 
-        <!-- ====================================================== FIND US -->
-        <section class="section section--alt" id="find-us" aria-labelledby="find-us-title">
+        <!-- ================================================== WHAT HAPPENS NEXT -->
+        <section class="section section--flush-top" aria-labelledby="next-title">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <p class="section-label">After you write to us</p>
+                    <h2 class="section-title" id="next-title">What happens next.</h2>
+                </div>
+
+                <ol class="steps reveal-stagger">
+                    <li class="step">
+                        <span class="step__num" aria-hidden="true">i</span>
+                        <h3 class="step__title">We reply, personally</h3>
+                        <p class="step__text">A message back from the studio, usually the same day, to check the date is free and hear a little about you.</p>
+                    </li>
+                    <li class="step">
+                        <span class="step__num" aria-hidden="true">ii</span>
+                        <h3 class="step__title">A short conversation</h3>
+                        <p class="step__text">On a call or over coffee at the studio. Where, who, what matters most. We listen more than we talk.</p>
+                    </li>
+                    <li class="step">
+                        <span class="step__num" aria-hidden="true">iii</span>
+                        <h3 class="step__title">The day itself</h3>
+                        <p class="step__text">We arrive early, stay quiet and stay close. You will forget we are there, which is the point.</p>
+                    </li>
+                    <li class="step">
+                        <span class="step__num" aria-hidden="true">iv</span>
+                        <h3 class="step__title">Choosing and finishing</h3>
+                        <p class="step__text">Every photograph is selected and finished by hand. No batch presets, no rush.</p>
+                    </li>
+                    <li class="step">
+                        <span class="step__num" aria-hidden="true">v</span>
+                        <h3 class="step__title">Yours to keep</h3>
+                        <p class="step__text">A private online gallery to share with family, and albums designed page by page when you would like one.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ====================================================== FIND US -->        <section class="section section--alt" id="find-us" aria-labelledby="find-us-title">
             <div class="container">
                 <div class="grid-12 find-us">
                     <div class="find-us__body reveal">

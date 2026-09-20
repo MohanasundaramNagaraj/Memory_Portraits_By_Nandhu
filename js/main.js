@@ -530,7 +530,9 @@
             ];
             if (f.email.value.trim()) { lines.push("Email: " + f.email.value.trim()); }
             lines.push("Photography type: " + f.type.options[f.type.selectedIndex].text);
-            if (f.date.value) { lines.push("Preferred date: " + f.date.value); }
+            if (f.date.value) { lines.push("Date: " + f.date.value); }
+            if (f.place && f.place.value.trim()) { lines.push("Where: " + f.place.value.trim()); }
+            if (f.heard && f.heard.value) { lines.push("Came across you via: " + f.heard.value); }
             lines.push("", f.message.value.trim());
             return lines.join("\n");
         }
