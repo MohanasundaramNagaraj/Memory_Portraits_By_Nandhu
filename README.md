@@ -47,7 +47,7 @@ photography-portfolio/
 ├── assets/
 │   ├── images/
 │   │   ├── hero/         Full-screen hero images (desktop + mobile crops)
-│   │   ├── weddings/     wedding-01.jpg … wedding-20.jpg, wedding-22.jpg
+│   │   ├── weddings/     wedding-01.jpg … wedding-20.jpg, wedding-22 … 24.jpg
 │   │   ├── newborn/      newborn-01 … 06, 08, 09, 10, 13.jpg
 │   │   ├── maternity/    maternity-01, 02, 03, 05.jpg
 │   │   ├── toddlers/     toddler-01 … 03, 05 … 16.jpg
