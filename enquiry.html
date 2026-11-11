@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photography Inquiry Wizard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #ffffff;
+      color: #181818;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .wizard-container {
+      width: 100%;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .wizard-header {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: #181818;
+      margin-bottom: 36px;
+      letter-spacing: -0.02em;
+    }
+
+    /* Progress Bar */
+    .progress-track {
+      width: 100%;
+      height: 1.5px;
+      background-color: #e5e5e5;
+      margin-bottom: 44px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 16.66%;
+      background-color: #181818;
+      transition: width 0.35s ease;
+    }
+
+    /* Step Containers */
+    .wizard-step {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .wizard-step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-question {
+      font-size: 24px;
+      font-weight: 600;
+      color: #181818;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    .step-question span.required {
+      color: #555;
+      font-weight: 400;
+    }
+
+    /* Radio / Option Cards */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .option-card {
+      border: 1px solid #d4d4d4;
+      background-color: #ffffff;
+      padding: 18px 20px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333333;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .option-card:hover {
+      border-color: #888888;
+    }
+
+    .option-card.selected {
+      background-color: #eaeaea;
+      border-color: #181818;
+      color: #181818;
+      font-weight: 600;
+    }
+
+    /* Text Inputs */
+    .input-group {
+      margin-bottom: 32px;
+    }
+
+    .underline-input {
+      width: 100%;
+      border: none;
+      border-bottom: 1.5px solid #181818;
+      padding: 12px 0;
+      font-size: 18px;
+      font-family: inherit;
+      color: #181818;
+      background: transparent;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .underline-input::placeholder {
+      color: #8c8c8c;
+      font-weight: 400;
+    }
+
+    .input-helper {
+      margin-top: 10px;
+      font-size: 13.5px;
+      color: #555555;
+    }
+
+    .error-msg {
+      color: #d93025;
+      font-size: 13.5px;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* Navigation Buttons */
+    .nav-row {
+      display: flex;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    .btn-back {
+      width: 54px;
+      height: 50px;
+      background-color: #ffffff;
+      border: 1px solid #d4d4d4;
+      color: #181818;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-back:hover {
+      border-color: #181818;
+      background-color: #f9f9f9;
+    }
+
+    .btn-next {
+      flex: 1;
+      height: 50px;
+      background-color: #181818;
+      color: #ffffff;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-next:hover {
+      background-color: #333333;
+    }
+
+    /* Thank You Screen */
+    .thank-you-box {
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .thank-you-box h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .thank-you-box p {
+      color: #555555;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .summary-card {
+      text-align: left;
+      background: #f8f8f8;
+      border: 1px solid #e5e5e5;
+      padding: 18px 20px;
+      font-size: 14px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wizard-container">
+    <h1 class="wizard-header">
+      Get a FREE Pre-Wedding Shoot, Cinematic Reel &amp; Luxury Magazine!
+    </h1>
+
+    <!-- Progress Bar -->
+    <div class="progress-track">
+      <div class="progress-fill" id="progressBar"></div>
+    </div>
+
+    <form id="photographyWizardForm" novalidate>
+
+      <!-- STEP 1: Event Type -->
+      <div class="wizard-step active" data-step="1">
+        <h2 class="step-question">Which event do you need photography for? <span class="required">*</span></h2>
+        <div class="options-list" data-field="event_type">
+          <div class="option-card" data-value="Wedding">Wedding</div>
+          <div class="option-card" data-value="Engagement / Reception">Engagement / Reception</div>
+          <div class="option-card" data-value="Engagement / Reception + Wedding">Engagement / Reception + Wedding</div>
+        </div>
+        <div class="error-msg" id="error-1">Please select an event type to continue.</div>
+        <div class="nav-row" style="margin-top: 20px;">
+          <button type="button" class="btn-next next-btn">NEXT</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Event Date -->
+      <div class="wizard-step" data-step="2">
+        <h2 class="step-question">What is your event date? <span class="required">*</span></h2>
+        <div class="input-group">
+          <input type="text" class="underline-input" id="eventDate" name="event_date" placeholder="e.g., 14th Nov 2026 or Dec 2026" />
+          <p class="input-helper">(Exact date not finalized? Just mention the month/year)</p>
+          <div class="error-msg" id="error-2">Please enter your event date or month/year.</div>
+        </div>
+        <div class="nav-row">
+          <button type="button" class="btn-back prev-btn" aria-label="Previous">&#8592;</button>
+          <button type="button" class="btn-next next-btn">NEXT</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Budget -->
+      <div class="wizard-step" data-step="3">
+        <h2 class="step-question">What is your photography budget? <span class="required">*</span></h2>
+        <div class="options-list" data-field="budget">
+          <div class="option-card" data-value="₹50,000 – ₹1 Lakh">&#8377;50,000 &ndash; &#8377;1 Lakh</div>
+          <div class="option-card" data-value="₹1 Lakh – ₹2 Lakhs">&#8377;1 Lakh &ndash; &#8377;2 Lakhs</div>
+          <div class="option-card" data-value="₹2 Lakhs – ₹3 Lakhs">&#8377;2 Lakhs &ndash; &#8377;3 Lakhs</div>
+          <div class="option-card" data-value="₹3 Lakhs & above">&#8377;3 Lakhs &amp; above</div>
+        </div>
+        <div class="error-msg" id="error-3">Please select a budget range.</div>
+        <div class="nav-row" style="margin-top: 20px;">
+          <button type="button" class="btn-back prev-btn" aria-label="Previous">&#8592;</button>
+          <button type="button" class="btn-next next-btn">NEXT</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Full Name -->
+      <div class="wizard-step" data-step="4">
+        <h2 class="step-question">Your Full Name <span class="required">*</span></h2>
+        <div class="input-group">
+          <input type="text" class="underline-input" id="fullName" name="full_name" placeholder="Your answer here..." />
+          <div class="error-msg" id="error-4">Please enter your full name.</div>
+        </div>
+        <div class="nav-row">
+          <button type="button" class="btn-back prev-btn" aria-label="Previous">&#8592;</button>
+          <button type="button" class="btn-next next-btn">NEXT</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: Email Address -->
+      <div class="wizard-step" data-step="5">
+        <h2 class="step-question">Your Email Address <span class="required">*</span></h2>
+        <div class="input-group">
+          <input type="email" class="underline-input" id="emailAddress" name="email" placeholder="name@example.com" />
+          <div class="error-msg" id="error-5">Please enter a valid email address.</div>
+        </div>
+        <div class="nav-row">
+          <button type="button" class="btn-back prev-btn" aria-label="Previous">&#8592;</button>
+          <button type="button" class="btn-next next-btn">NEXT</button>
+        </div>
+      </div>
+
+      <!-- STEP 6: Phone / WhatsApp Number (Final Step) -->
+      <div class="wizard-step" data-step="6">
+        <h2 class="step-question">Your Phone / WhatsApp Number <span class="required">*</span></h2>
+        <div class="input-group">
+          <input type="tel" class="underline-input" id="phoneNumber" name="phone" placeholder="+91 98765 43210" />
+          <p class="input-helper">We'll send your customized quote &amp; portfolio samples on WhatsApp.</p>
+          <div class="error-msg" id="error-6">Please enter a valid 10-digit phone number.</div>
+        </div>
+        <div class="nav-row">
+          <button type="button" class="btn-back prev-btn" aria-label="Previous">&#8592;</button>
+          <button type="submit" class="btn-next">SUBMIT</button>
+        </div>
+      </div>
+
+      <!-- COMPLETION SCREEN -->
+      <div class="wizard-step" data-step="7">
+        <div class="thank-you-box">
+          <h3>Thank You! Your Inquiry is Received.</h3>
+          <p>We have unlocked your complimentary Pre-Wedding Shoot, Cinematic Reel &amp; Luxury Magazine offer. Our team will reach out shortly.</p>
+          <div class="summary-card" id="summaryOutput"></div>
+          <button type="button" class="btn-next" id="resetWizardBtn">Start Over</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      let currentStep = 1;
+      const totalFormSteps = 6;
+
+      // Store form answers
+      const formData = {
+        event_type: '',
+        event_date: '',
+        budget: '',
+        full_name: '',
+        email: '',
+        phone: ''
+      };
+
+      // Update progress bar width
+      function updateProgress(step) {
+        const percentage = Math.min((step / totalFormSteps) * 100, 100);
+        $('#progressBar').css('width', percentage + '%');
+      }
+
+      // Navigate to a specific step
+      function showStep(step) {
+        $('.wizard-step').removeClass('active');
+        $(`.wizard-step[data-step="${step}"]`).addClass('active');
+        $('.error-msg').hide();
+        updateProgress(step);
+
+        // Auto-focus text input if present in the new step
+        const $input = $(`.wizard-step[data-step="${step}"]`).find('input');
+        if ($input.length) {
+          setTimeout(() => $input.focus(), 100);
+        }
+      }
+
+      // Option card selection (Step 1 & Step 3)
+      $('.option-card').on('click', function () {
+        const $parent = $(this).closest('.options-list');
+        const fieldName = $parent.data('field');
+        const selectedValue = $(this).data('value');
+
+        $parent.find('.option-card').removeClass('selected');
+        $(this).addClass('selected');
+
+        formData[fieldName] = selectedValue;
+        $(`#error-${currentStep}`).hide();
+      });
+
+      // Validate current step
+      function validateStep(step) {
+        $('.error-msg').hide();
+
+        if (step === 1) {
+          if (!formData.event_type) {
+            $('#error-1').show();
+            return false;
+          }
+        } else if (step === 2) {
+          const val = $('#eventDate').val().trim();
+          if (!val) {
+            $('#error-2').show();
+            return false;
+          }
+          formData.event_date = val;
+        } else if (step === 3) {
+          if (!formData.budget) {
+            $('#error-3').show();
+            return false;
+          }
+        } else if (step === 4) {
+          const val = $('#fullName').val().trim();
+          if (!val) {
+            $('#error-4').show();
+            return false;
+          }
+          formData.full_name = val;
+        } else if (step === 5) {
+          const val = $('#emailAddress').val().trim();
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!val || !emailRegex.test(val)) {
+            $('#error-5').show();
+            return false;
+          }
+          formData.email = val;
+        } else if (step === 6) {
+          const val = $('#phoneNumber').val().trim();
+          const digitsOnly = val.replace(/\D/g, '');
+          if (digitsOnly.length < 10) {
+            $('#error-6').show();
+            return false;
+          }
+          formData.phone = val;
+        }
+
+        return true;
+      }
+
+      // Next Button Click
+      $('.next-btn').on('click', function () {
+        if (validateStep(currentStep)) {
+          currentStep++;
+          showStep(currentStep);
+        }
+      });
+
+      // Previous Button Click
+      $('.prev-btn').on('click', function () {
+        if (currentStep > 1) {
+          currentStep--;
+          showStep(currentStep);
+        }
+      });
+
+      // Allow pressing "Enter" inside text inputs to advance
+      $('.underline-input').on('keypress', function (e) {
+        if (e.which === 13) {
+          e.preventDefault();
+          if (currentStep < totalFormSteps) {
+            $(this).closest('.wizard-step').find('.next-btn').click();
+          } else {
+            $('#photographyWizardForm').submit();
+          }
+        }
+      });
+
+      // Form Submission
+      $('#photographyWizardForm').on('submit', function (e) {
+        e.preventDefault();
+        if (!validateStep(currentStep)) return;
+
+        // Render Summary (Replace this block with $.ajax() to send data to your backend)
+        $('#summaryOutput').html(`
+          <strong>Event:</strong> ${formData.event_type}<br>
+          <strong>Date:</strong> ${formData.event_date}<br>
+          <strong>Budget:</strong> ${formData.budget}<br>
+          <strong>Name:</strong> ${formData.full_name}<br>
+          <strong>Email:</strong> ${formData.email}<br>
+          <strong>Phone:</strong> ${formData.phone}
+        `);
+
+        console.log('Submitted Lead Data:', formData);
+        currentStep = 7;
+        showStep(currentStep);
+      });
+
+      // Reset Wizard
+      $('#resetWizardBtn').on('click', function () {
+        $('#photographyWizardForm')[0].reset();
+        $('.option-card').removeClass('selected');
+        Object.keys(formData).forEach(key => formData[key] = '');
+        currentStep = 1;
+        showStep(currentStep);
+      });
+    });
+  </script>
+</body>
+</html>
