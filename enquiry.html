@@ -462,25 +462,84 @@
           }
         }
       });
+     
+      // Google Apps Script Web App URL (replace after deploying Apps Script)
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1ZObkEXfxWavpu5TsBlSMVMYFT1OuIpnHQj_0_Ip8O4MxRI-6bNmCrYYhBWsBXLMagA/exec';
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, function (char) {
+          return ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+          })[char];
+        });
+      }
 
       // Form Submission
-      $('#photographyWizardForm').on('submit', function (e) {
+      $('#photographyWizardForm').on('submit', async function (e) {
         e.preventDefault();
         if (!validateStep(currentStep)) return;
 
-        // Render Summary (Replace this block with $.ajax() to send data to your backend)
-        $('#summaryOutput').html(`
-          <strong>Event:</strong> ${formData.event_type}<br>
-          <strong>Date:</strong> ${formData.event_date}<br>
-          <strong>Budget:</strong> ${formData.budget}<br>
-          <strong>Name:</strong> ${formData.full_name}<br>
-          <strong>Email:</strong> ${formData.email}<br>
-          <strong>Phone:</strong> ${formData.phone}
-        `);
+        const $submitButton = $(this).find('button[type="submit"]');
+        const originalText = $submitButton.text();
 
-        console.log('Submitted Lead Data:', formData);
-        currentStep = 7;
-        showStep(currentStep);
+        if (GOOGLE_SCRIPT_URL.includes('PASTE_YOUR_')) {
+          alert('Please configure your Google Apps Script Web App URL first.');
+          return;
+        }
+
+        $submitButton.prop('disabled', true).text('SUBMITTING...');
+
+        // Build a separate payload so the submitted data is a stable snapshot.
+        const submission = {
+          event_type: formData.event_type,
+          event_date: formData.event_date,
+          budget: formData.budget,
+          full_name: formData.full_name,
+          email: formData.email,
+          phone: formData.phone,
+          submitted_at: new Date().toISOString()
+        };
+
+        try {
+          // Apps Script accepts this simple URL-encoded POST without a CORS preflight.
+          // no-cors means the browser cannot read the server response; it only confirms
+          // that the request was dispatched, not that email/sheet processing succeeded.
+          const body = new URLSearchParams({
+            payload: JSON.stringify(submission)
+          });
+
+          await fetch(GOOGLE_SCRIPT_URL, {
+  		method: 'POST',
+  		mode: 'no-cors',
+  		headers: {
+    			'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+ 		 },
+  		body: new URLSearchParams({
+    		payload: JSON.stringify(submission)
+  }).toString()
+});
+
+          $('#summaryOutput').html(`
+            <strong>Event:</strong> ${escapeHtml(submission.event_type)}<br>
+            <strong>Date:</strong> ${escapeHtml(submission.event_date)}<br>
+            <strong>Budget:</strong> ${escapeHtml(submission.budget)}<br>
+            <strong>Name:</strong> ${escapeHtml(submission.full_name)}<br>
+            <strong>Email:</strong> ${escapeHtml(submission.email)}<br>
+            <strong>Phone:</strong> ${escapeHtml(submission.phone)}
+          `);
+
+          currentStep = 7;
+          showStep(currentStep);
+        } catch (error) {
+          console.error('Inquiry submission failed:', error);
+          alert('Unable to send your inquiry. Please check your internet connection and try again.');
+        } finally {
+          $submitButton.prop('disabled', false).text(originalText);
+        }
       });
 
       // Reset Wizard
