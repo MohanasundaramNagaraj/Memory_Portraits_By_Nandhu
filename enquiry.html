@@ -223,6 +223,32 @@
       line-height: 1.8;
       margin-bottom: 24px;
     }
+
+    /* WhatsApp button */
+    .btn-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 50px;
+      margin-bottom: 12px;
+      padding: 14px 18px;
+      background-color: #25D366;
+      color: #ffffff;
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-whatsapp:hover {
+      background-color: #1da851;
+    }
   </style>
 </head>
 <body>
@@ -329,6 +355,7 @@
           <h3>Thank You! Your Inquiry is Received.</h3>
           <p>We have unlocked your complimentary Pre-Wedding Shoot, Cinematic Reel &amp; Luxury Magazine offer. Our team will reach out shortly.</p>
           <div class="summary-card" id="summaryOutput"></div>
+          <a class="btn-whatsapp" id="whatsappInquiryBtn" href="#" target="_blank" rel="noopener noreferrer">Continue on WhatsApp</a>
           <button type="button" class="btn-next" id="resetWizardBtn">Start Over</button>
         </div>
       </div>
@@ -531,6 +558,27 @@
             <strong>Email:</strong> ${escapeHtml(submission.email)}<br>
             <strong>Phone:</strong> ${escapeHtml(submission.phone)}
           `);
+
+          // Prepare a free WhatsApp Click-to-Chat message for the business number.
+          // The customer must review the prefilled message and press Send in WhatsApp.
+          const businessWhatsAppNumber = '919751947133';
+          const whatsappMessage = [
+            'Hello Memory Portraits By Nandhu,',
+            '',
+            'I have submitted a photography inquiry through your website.',
+            '',
+            `Name: ${submission.full_name}`,
+            `Event: ${submission.event_type}`,
+            `Event Date: ${submission.event_date}`,
+            `Budget: ${submission.budget}`,
+            `Email: ${submission.email}`,
+            `Phone: ${submission.phone}`
+          ].join('\n');
+
+          $('#whatsappInquiryBtn').attr(
+            'href',
+            `https://wa.me/${businessWhatsAppNumber}?text=${encodeURIComponent(whatsappMessage)}`
+          );
 
           currentStep = 7;
           showStep(currentStep);
