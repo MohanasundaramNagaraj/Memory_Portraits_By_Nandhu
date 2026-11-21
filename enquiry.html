@@ -470,7 +470,7 @@
                     });
                 });
 
-                form.addEventListener("submit", function (event) {
+                $("#photographyWizardForm").on("submit", async function (e) {
                     event.preventDefault();
                     if (isSubmitting || currentStep !== totalSteps || !validateStep(totalSteps)) return;
                     isSubmitting = true;
