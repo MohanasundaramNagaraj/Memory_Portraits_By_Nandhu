@@ -108,7 +108,7 @@ function doPost(e) {
     const phone = escapeHtml_(data.phone);
 
     // Confirmation email to the address entered by the customer.
-    /* MailApp.sendEmail({
+    MailApp.sendEmail({
       to: email,
       subject: 'We received your photography inquiry',
       body:
@@ -127,7 +127,7 @@ function doPost(e) {
         '<strong>Budget:</strong> ' + budget + '</p>' +
         '<p>Our team will contact you shortly.</p>' +
         '<p>Memory Portraits By Nandhu</p>'
-    });*/
+    });
 
     // Internal notification to the business owner.
     if (ADMIN_EMAIL && ADMIN_EMAIL.indexOf('@') > 0) {
