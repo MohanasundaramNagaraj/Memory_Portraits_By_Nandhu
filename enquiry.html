@@ -8,131 +8,113 @@
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
             rel="stylesheet"
         />
-
         <style>
             * {
                 box-sizing: border-box;
                 margin: 0;
                 padding: 0;
             }
-
             body {
                 font-family:
-                    "Inter",
+                    Inter,
                     -apple-system,
                     BlinkMacSystemFont,
                     sans-serif;
-                background-color: #ffffff;
+                background: #fff;
                 color: #181818;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 min-height: 100vh;
-                padding: 24px;
+                padding: 20px;
             }
-
             .wizard-container {
                 width: 100%;
                 max-width: 620px;
-                margin: 0 auto;
+                margin: auto;
             }
-
             .wizard-header {
                 text-align: center;
                 font-size: 28px;
                 font-weight: 700;
                 line-height: 1.3;
-                color: #181818;
-                margin-bottom: 36px;
+                margin-bottom: 30px;
                 letter-spacing: -0.02em;
             }
-
             .progress-track {
                 width: 100%;
-                height: 1.5px;
-                background-color: #e5e5e5;
-                margin-bottom: 44px;
-                position: relative;
+                height: 2px;
+                background: #e5e5e5;
+                margin-bottom: 34px;
                 overflow: hidden;
             }
-
             .progress-fill {
                 height: 100%;
                 width: 16.66%;
-                background-color: #181818;
-                transition: width 0.35s ease;
+                background: #181818;
+                transition: width 0.3s ease;
             }
-
             .wizard-step {
                 display: none;
-                animation: fadeIn 0.3s ease;
+                animation: fadeIn 0.25s ease;
             }
-
             .wizard-step.active {
                 display: block;
             }
-
             @keyframes fadeIn {
                 from {
                     opacity: 0;
-                    transform: translateY(6px);
+                    transform: translateY(5px);
                 }
                 to {
                     opacity: 1;
                     transform: translateY(0);
                 }
             }
-
             .step-question {
                 font-size: 24px;
                 font-weight: 600;
-                color: #181818;
-                margin-bottom: 24px;
+                margin-bottom: 22px;
                 letter-spacing: -0.01em;
             }
-
-            .step-question span.required {
+            .step-question .required {
                 color: #555;
                 font-weight: 400;
             }
-
             .options-list {
                 display: flex;
                 flex-direction: column;
-                gap: 14px;
-                margin-bottom: 28px;
+                gap: 12px;
+                margin-bottom: 24px;
             }
-
             .option-card {
                 border: 1px solid #d4d4d4;
-                background-color: #ffffff;
-                padding: 18px 20px;
+                background: #fff;
+                padding: 16px 18px;
                 font-size: 16px;
                 font-weight: 500;
-                color: #333333;
+                color: #333;
                 cursor: pointer;
-                transition: all 0.2s ease;
+                transition:
+                    background 0.2s,
+                    border-color 0.2s;
                 user-select: none;
             }
-
             .option-card:hover {
-                border-color: #888888;
+                border-color: #888;
             }
-
             .option-card.selected {
-                background-color: #eaeaea;
+                background: #eaeaea;
                 border-color: #181818;
                 color: #181818;
                 font-weight: 600;
             }
-
             .input-group {
-                margin-bottom: 32px;
+                margin-bottom: 26px;
             }
-
             .underline-input {
                 width: 100%;
-                border: none;
+                border: 0;
                 border-bottom: 1.5px solid #181818;
                 padding: 12px 0;
                 font-size: 18px;
@@ -140,37 +122,32 @@
                 color: #181818;
                 background: transparent;
                 outline: none;
-                transition: border-color 0.2s ease;
             }
-
             .underline-input::placeholder {
                 color: #8c8c8c;
                 font-weight: 400;
             }
-
             .input-helper {
-                margin-top: 10px;
-                font-size: 13.5px;
-                color: #555555;
+                margin-top: 9px;
+                font-size: 13px;
+                color: #555;
+                line-height: 1.5;
             }
-
             .error-msg {
                 color: #d93025;
-                font-size: 13.5px;
+                font-size: 13px;
                 margin-top: 8px;
                 display: none;
             }
-
             .nav-row {
                 display: flex;
                 align-items: stretch;
                 gap: 12px;
             }
-
             .btn-back {
                 width: 54px;
                 height: 50px;
-                background-color: #ffffff;
+                background: #fff;
                 border: 1px solid #d4d4d4;
                 color: #181818;
                 font-size: 18px;
@@ -178,80 +155,84 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                transition:
-                    border-color 0.2s ease,
-                    background-color 0.2s ease;
                 flex-shrink: 0;
             }
-
             .btn-back:hover {
                 border-color: #181818;
-                background-color: #f9f9f9;
+                background: #f9f9f9;
             }
-
             .btn-next {
                 flex: 1;
-                height: 50px;
-                background-color: #181818;
-                color: #ffffff;
-                border: none;
+                min-height: 50px;
+                background: #181818;
+                color: #fff;
+                border: 0;
                 font-size: 13px;
                 font-weight: 600;
                 letter-spacing: 0.14em;
                 text-transform: uppercase;
                 cursor: pointer;
-                transition: background-color 0.2s ease;
+                transition: background 0.2s;
             }
-
             .btn-next:hover {
-                background-color: #333333;
+                background: #333;
             }
-
             .btn-next:disabled {
                 opacity: 0.6;
-                cursor: not-allowed;
+                cursor: wait;
+            }
+            .submission-status {
+                font-size: 13px;
+                line-height: 1.5;
+                color: #555;
+                margin-top: 12px;
+                min-height: 18px;
+            }
+            @media (max-width: 480px) {
+                body {
+                    padding: 18px;
+                }
+                .wizard-header {
+                    font-size: 24px;
+                    margin-bottom: 26px;
+                }
+                .step-question {
+                    font-size: 21px;
+                }
+                .option-card {
+                    padding: 15px;
+                    font-size: 15px;
+                }
             }
         </style>
     </head>
-
     <body>
-        <div class="wizard-container">
+        <main class="wizard-container">
             <h1 class="wizard-header">Get a FREE Pre-Wedding with One of our Wedding Package</h1>
-
-            <div class="progress-track">
-                <div class="progress-fill" id="progressBar"></div>
-            </div>
-
+            <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressBar"></div></div>
             <form id="photographyWizardForm" novalidate>
-                <!-- STEP 1: Event Type -->
-                <div class="wizard-step active" data-step="1">
+                <section class="wizard-step active" data-step="1">
                     <h2 class="step-question">
-                        Which event do you need photography for?
-                        <span class="required">*</span>
+                        Which event do you need photography for? <span class="required">*</span>
                     </h2>
-
                     <div class="options-list" data-field="event_type">
-                        <div class="option-card" data-value="Engagement">Engagement</div>
-
-                        <div class="option-card" data-value="Reception + Wedding"> Reception + Wedding</div>
-
-                        <div class="option-card" data-value="Engagement + Reception + Wedding">
+                        <div class="option-card" data-value="Engagement" tabindex="0" role="button">Engagement</div>
+                        <div class="option-card" data-value="Reception + Wedding" tabindex="0" role="button">
+                            Reception + Wedding
+                        </div>
+                        <div
+                            class="option-card"
+                            data-value="Engagement + Reception + Wedding"
+                            tabindex="0"
+                            role="button"
+                        >
                             Engagement + Reception + Wedding
                         </div>
                     </div>
-
                     <div class="error-msg" id="error-1">Please select an event type to continue.</div>
-
-                    <!-- No NEXT button on first page -->
-                </div>
-
-                <!-- STEP 2: Event Date -->
-                <div class="wizard-step" data-step="2">
-                    <h2 class="step-question">
-                        What is your event date?
-                        <span class="required">*</span>
-                    </h2>
-
+                </section>
+                <section class="wizard-step" data-step="2">
+                    <h2 class="step-question">What is your event date? <span class="required">*</span></h2>
                     <div class="input-group">
                         <input
                             type="text"
@@ -259,53 +240,27 @@
                             id="eventDate"
                             name="event_date"
                             placeholder="e.g., 14th Nov 2026 or Dec 2026"
+                            autocomplete="off"
                         />
-
-                        <p class="input-helper">(Exact date not finalized? Just mention the month/year)</p>
-
+                        <p class="input-helper">Exact date not finalized? Just mention the month/year.</p>
                         <div class="error-msg" id="error-2">Please enter your event date or month/year.</div>
                     </div>
-
                     <div class="nav-row">
-                        <button type="button" class="btn-back prev-btn">&#8592;</button>
-
-                        <button type="button" class="btn-next next-btn">NEXT</button>
+                        <button type="button" class="btn-back prev-btn" aria-label="Previous step">&#8592;</button
+                        ><button type="button" class="btn-next next-btn">NEXT</button>
                     </div>
-                </div>
-
-                <!-- STEP 3: Budget -->
-                <div class="wizard-step" data-step="3">
-                    <h2 class="step-question">
-                        What is your photography budget?
-                        <span class="required">*</span>
-                    </h2>
-
-                    <div class="options-list" data-field="budget">
-                      <!--  <div class="option-card" data-value="₹50,000 – ₹1 Lakh">₹50,000 – ₹1 Lakh</div> -->
-
-                        <div class="option-card" data-value="₹1 Lakh – ₹2 Lakhs">₹1 Lakh – ₹2 Lakhs</div>
-
-                        <div class="option-card" data-value="₹2 Lakhs – ₹3 Lakhs">₹2 Lakhs – ₹3 Lakhs</div>
-
-                        <div class="option-card" data-value="₹3 Lakhs & above">₹3 Lakhs & above</div>
-                    </div>
-
+                </section>
+                <section class="wizard-step" data-step="3">
+                    <h2 class="step-question">What is your photography budget? <span class="required">*</span></h2>
+                    <div class="options-list" id="budgetOptions" data-field="budget"></div>
                     <div class="error-msg" id="error-3">Please select a budget range.</div>
-
                     <div class="nav-row">
-                        <button type="button" class="btn-back prev-btn">&#8592;</button>
-
-                        <button type="button" class="btn-next next-btn">NEXT</button>
+                        <button type="button" class="btn-back prev-btn" aria-label="Previous step">&#8592;</button
+                        ><button type="button" class="btn-next next-btn">NEXT</button>
                     </div>
-                </div>
-
-                <!-- STEP 4: Full Name -->
-                <div class="wizard-step" data-step="4">
-                    <h2 class="step-question">
-                        Your Full Name
-                        <span class="required">*</span>
-                    </h2>
-
+                </section>
+                <section class="wizard-step" data-step="4">
+                    <h2 class="step-question">Your Full Name <span class="required">*</span></h2>
                     <div class="input-group">
                         <input
                             type="text"
@@ -313,25 +268,17 @@
                             id="fullName"
                             name="full_name"
                             placeholder="Your answer here..."
+                            autocomplete="name"
                         />
-
                         <div class="error-msg" id="error-4">Please enter your full name.</div>
                     </div>
-
                     <div class="nav-row">
-                        <button type="button" class="btn-back prev-btn">&#8592;</button>
-
-                        <button type="button" class="btn-next next-btn">NEXT</button>
+                        <button type="button" class="btn-back prev-btn" aria-label="Previous step">&#8592;</button
+                        ><button type="button" class="btn-next next-btn">NEXT</button>
                     </div>
-                </div>
-
-                <!-- STEP 5: Email Address -->
-                <div class="wizard-step" data-step="5">
-                    <h2 class="step-question">
-                        Your Email Address
-                        <span class="required">*</span>
-                    </h2>
-
+                </section>
+                <section class="wizard-step" data-step="5">
+                    <h2 class="step-question">Your Email Address <span class="required">*</span></h2>
                     <div class="input-group">
                         <input
                             type="email"
@@ -339,25 +286,17 @@
                             id="emailAddress"
                             name="email"
                             placeholder="name@example.com"
+                            autocomplete="email"
                         />
-
                         <div class="error-msg" id="error-5">Please enter a valid email address.</div>
                     </div>
-
                     <div class="nav-row">
-                        <button type="button" class="btn-back prev-btn">&#8592;</button>
-
-                        <button type="button" class="btn-next next-btn">NEXT</button>
+                        <button type="button" class="btn-back prev-btn" aria-label="Previous step">&#8592;</button
+                        ><button type="button" class="btn-next next-btn">NEXT</button>
                     </div>
-                </div>
-
-                <!-- STEP 6: Phone / WhatsApp -->
-                <div class="wizard-step" data-step="6">
-                    <h2 class="step-question">
-                        Your Phone / WhatsApp Number
-                        <span class="required">*</span>
-                    </h2>
-
+                </section>
+                <section class="wizard-step" data-step="6">
+                    <h2 class="step-question">Your Phone / WhatsApp Number <span class="required">*</span></h2>
                     <div class="input-group">
                         <input
                             type="tel"
@@ -365,315 +304,249 @@
                             id="phoneNumber"
                             name="phone"
                             placeholder="+91 98765 43210"
+                            autocomplete="tel"
+                            inputmode="tel"
                         />
-
                         <p class="input-helper">
                             We'll send your customized quote &amp; portfolio samples on WhatsApp.
                         </p>
-
-                        <div class="error-msg" id="error-6">Please enter a valid 10-digit phone number.</div>
+                        <div class="error-msg" id="error-6">Please enter a valid phone number (10 to 15 digits).</div>
                     </div>
-
                     <div class="nav-row">
-                        <button type="button" class="btn-back prev-btn">&#8592;</button>
-
-                        <button type="submit" class="btn-next" id="submitButton">SUBMIT</button>
+                        <button type="button" class="btn-back prev-btn" aria-label="Previous step">&#8592;</button
+                        ><button type="submit" class="btn-next" id="submitButton">SUBMIT</button>
                     </div>
-                </div>
+                    <p class="submission-status" id="submissionStatus" role="status" aria-live="polite"></p>
+                </section>
             </form>
-        </div>
-
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
+        </main>
+        <!-- Hidden iframe lets the browser POST to Apps Script without CORS blocking the request. -->
+        <iframe name="googleScriptFrame" title="Submission response" hidden></iframe>
         <script>
-            $(document).ready(function () {
-                let currentStep = 1;
-
-                const totalFormSteps = 6;
-
-                const formData = {
-                    event_type: "",
-                    event_date: "",
-                    budget: "",
-                    full_name: "",
-                    email: "",
-                    phone: "",
-                };
-
-                // GOOGLE APPS SCRIPT URL
-
+            (function () {
+                "use strict";
                 const GOOGLE_SCRIPT_URL =
                     "https://script.google.com/macros/s/AKfycbx-2YEkCYSvh-aaUPw-gVZSYt3ZhnvJCv9sMgeWIo0Hqcxq11SLpHEBm0AQnKRWbMB7/exec";
+                const BUSINESS_WHATSAPP_NUMBER = "919751947133";
+                const totalSteps = 6;
+                let currentStep = 1;
+                let isSubmitting = false;
+                const form = document.getElementById("photographyWizardForm");
+                const progressBar = document.getElementById("progressBar");
+                const budgetOptions = document.getElementById("budgetOptions");
+                const submitButton = document.getElementById("submitButton");
+                const statusMessage = document.getElementById("submissionStatus");
+                const formData = { event_type: "", event_date: "", budget: "", full_name: "", email: "", phone: "" };
 
-                // WHATSAPP BUSINESS NUMBER
-
-                const businessWhatsAppNumber = "919751947133";
-
-                // PROGRESS BAR
+                function renderBudgetOptions() {
+                    const ranges =
+                        formData.event_type === "Engagement"
+                            ? ["₹50,000 – ₹1 Lakh", "₹1 Lakh – ₹2 Lakhs"]
+                            : ["₹1 Lakh – ₹2 Lakhs", "₹2 Lakhs – ₹3 Lakhs", "₹3 Lakhs & above"];
+                    budgetOptions.replaceChildren();
+                    ranges.forEach(function (range) {
+                        const option = document.createElement("div");
+                        option.className = "option-card";
+                        option.dataset.value = range;
+                        option.tabIndex = 0;
+                        option.setAttribute("role", "button");
+                        option.textContent = range;
+                        budgetOptions.appendChild(option);
+                    });
+                    formData.budget = "";
+                }
 
                 function updateProgress(step) {
-                    const percentage = Math.min((step / totalFormSteps) * 100, 100);
-
-                    $("#progressBar").css("width", percentage + "%");
+                    progressBar.style.width = (step / totalSteps) * 100 + "%";
                 }
-
-                // SHOW STEP
-
                 function showStep(step) {
-                    $(".wizard-step").removeClass("active");
-
-                    $(`.wizard-step[data-step="${step}"]`).addClass("active");
-
-                    $(".error-msg").hide();
-
+                    document.querySelectorAll(".wizard-step").forEach(function (section) {
+                        section.classList.toggle("active", Number(section.dataset.step) === step);
+                    });
+                    document.querySelectorAll(".error-msg").forEach(function (error) {
+                        error.style.display = "none";
+                    });
                     updateProgress(step);
-
-                    const $input = $(`.wizard-step[data-step="${step}"]`).find("input");
-
-                    if ($input.length) {
-                        setTimeout(() => $input.focus(), 100);
-                    }
+                    const input = document.querySelector('.wizard-step[data-step="' + step + '"] input');
+                    if (input)
+                        setTimeout(function () {
+                            input.focus();
+                        }, 100);
                 }
-
-                // OPTION SELECTION
-
-                $(".option-card").on("click", function () {
-                    const $parent = $(this).closest(".options-list");
-
-                    const fieldName = $parent.data("field");
-
-                    const selectedValue = $(this).data("value");
-
-                    $parent.find(".option-card").removeClass("selected");
-
-                    $(this).addClass("selected");
-
-                    formData[fieldName] = selectedValue;
-
-                    $(`#error-${currentStep}`).hide();
-
-                    // STEP 1: AUTOMATICALLY MOVE TO STEP 2
-
-                    if (currentStep === 1) {
+                function selectOption(option) {
+                    const list = option.closest(".options-list");
+                    list.querySelectorAll(".option-card").forEach(function (card) {
+                        card.classList.remove("selected");
+                    });
+                    option.classList.add("selected");
+                    const field = list.dataset.field;
+                    const value = option.dataset.value;
+                    if (field === "event_type") {
+                        if (formData.event_type !== value) {
+                            formData.event_type = value;
+                            renderBudgetOptions();
+                        }
+                        document.getElementById("error-1").style.display = "none";
                         setTimeout(function () {
                             currentStep = 2;
-
                             showStep(currentStep);
-                        }, 200);
+                        }, 180);
+                    } else {
+                        formData[field] = value;
+                        document.getElementById("error-3").style.display = "none";
+                    }
+                }
+                document.addEventListener("click", function (event) {
+                    const option = event.target.closest(".option-card");
+                    if (option) selectOption(option);
+                });
+                document.addEventListener("keydown", function (event) {
+                    const option = event.target.closest(".option-card");
+                    if (option && (event.key === "Enter" || event.key === " ")) {
+                        event.preventDefault();
+                        selectOption(option);
                     }
                 });
-
-                // VALIDATE STEP
 
                 function validateStep(step) {
-                    $(".error-msg").hide();
-
-                    if (step === 1) {
-                        if (!formData.event_type) {
-                            $("#error-1").show();
-
-                            return false;
-                        }
-                    } else if (step === 2) {
-                        const val = $("#eventDate").val().trim();
-
-                        if (!val) {
-                            $("#error-2").show();
-
-                            return false;
-                        }
-
-                        formData.event_date = val;
-                    } else if (step === 3) {
-                        if (!formData.budget) {
-                            $("#error-3").show();
-
-                            return false;
-                        }
-                    } else if (step === 4) {
-                        const val = $("#fullName").val().trim();
-
-                        if (!val) {
-                            $("#error-4").show();
-
-                            return false;
-                        }
-
-                        formData.full_name = val;
-                    } else if (step === 5) {
-                        const val = $("#emailAddress").val().trim();
-
-                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-                        if (!val || !emailRegex.test(val)) {
-                            $("#error-5").show();
-
-                            return false;
-                        }
-
-                        formData.email = val;
-                    } else if (step === 6) {
-                        const val = $("#phoneNumber").val().trim();
-
-                        const digitsOnly = val.replace(/\D/g, "");
-
-                        if (digitsOnly.length < 10 || digitsOnly.length > 15) {
-                            $("#error-6").show();
-
-                            return false;
-                        }
-
-                        formData.phone = val;
+                    document.querySelectorAll(".error-msg").forEach(function (error) {
+                        error.style.display = "none";
+                    });
+                    let valid = true;
+                    if (step === 1) valid = !!formData.event_type;
+                    if (step === 2) {
+                        formData.event_date = document.getElementById("eventDate").value.trim();
+                        valid = !!formData.event_date;
                     }
-
-                    return true;
+                    if (step === 3) valid = !!formData.budget;
+                    if (step === 4) {
+                        formData.full_name = document.getElementById("fullName").value.trim();
+                        valid = !!formData.full_name;
+                    }
+                    if (step === 5) {
+                        formData.email = document.getElementById("emailAddress").value.trim();
+                        valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
+                    }
+                    if (step === 6) {
+                        formData.phone = document.getElementById("phoneNumber").value.trim();
+                        const digits = formData.phone.replace(/\D/g, "");
+                        valid = digits.length >= 10 && digits.length <= 15;
+                    }
+                    if (!valid) {
+                        const error = document.getElementById("error-" + step);
+                        if (error) error.style.display = "block";
+                    }
+                    return valid;
                 }
-
-                // NEXT BUTTON
-
-                $(".next-btn").on("click", function () {
-                    if (validateStep(currentStep)) {
-                        currentStep++;
-
-                        showStep(currentStep);
-                    }
-                });
-
-                // PREVIOUS BUTTON
-
-                $(".prev-btn").on("click", function () {
-                    if (currentStep > 1) {
-                        currentStep--;
-
-                        showStep(currentStep);
-                    }
-                });
-
-                // ENTER KEY NAVIGATION
-
-                $(".underline-input").on("keydown", function (e) {
-                    if (e.key === "Enter") {
-                        e.preventDefault();
-
-                        if (currentStep < totalFormSteps) {
-                            $(this).closest(".wizard-step").find(".next-btn").click();
-                        } else {
-                            $("#photographyWizardForm").submit();
+                document.querySelectorAll(".next-btn").forEach(function (button) {
+                    button.addEventListener("click", function () {
+                        if (validateStep(currentStep)) {
+                            currentStep++;
+                            showStep(currentStep);
                         }
-                    }
+                    });
+                });
+                document.querySelectorAll(".prev-btn").forEach(function (button) {
+                    button.addEventListener("click", function () {
+                        if (currentStep > 1) {
+                            currentStep--;
+                            showStep(currentStep);
+                        }
+                    });
+                });
+                document.querySelectorAll(".underline-input").forEach(function (input) {
+                    input.addEventListener("keydown", function (event) {
+                        if (event.key === "Enter") {
+                            event.preventDefault();
+                            if (currentStep < totalSteps) {
+                                const next = document.querySelector(
+                                    '.wizard-step[data-step="' + currentStep + '"] .next-btn'
+                                );
+                                if (next) next.click();
+                            } else {
+                                form.requestSubmit();
+                            }
+                        }
+                    });
                 });
 
-                // FORM SUBMISSION
-
-                $("#photographyWizardForm").on("submit", async function (e) {
-                    e.preventDefault();
-
-                    if (currentStep !== 6 || !validateStep(currentStep)) {
-                        return;
-                    }
-
-                    const $submitButton = $("#submitButton");
-
-                    $submitButton.prop("disabled", true).text("PLEASE WAIT...");
-
-                    // CREATE SUBMISSION DATA
+                form.addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    if (isSubmitting || currentStep !== totalSteps || !validateStep(totalSteps)) return;
+                    isSubmitting = true;
+                    submitButton.disabled = true;
+                    submitButton.textContent = "OPENING WHATSAPP...";
+                    statusMessage.textContent = "Sending your inquiry and opening WhatsApp…";
 
                     const submission = {
                         event_type: formData.event_type,
-
                         event_date: formData.event_date,
-
                         budget: formData.budget,
-
                         full_name: formData.full_name,
-
                         email: formData.email,
-
                         phone: formData.phone,
-
                         submitted_at: new Date().toISOString(),
                     };
-
-                    // PREPARE WHATSAPP MESSAGE
-
                     const whatsappMessage = [
                         "Hello Memory Portraits By Nandhu,",
-
                         "",
-
                         "I would like to enquire about your photography services.",
-
                         "",
-
                         "Name: " + submission.full_name,
-
                         "Event: " + submission.event_type,
-
                         "Event Date: " + submission.event_date,
-
                         "Budget: " + submission.budget,
-
                         "Email: " + submission.email,
-
                         "Phone: " + submission.phone,
-
                         "",
-
                         "I am interested in your FREE Pre-Wedding Shoot, Cinematic Reel & Luxury Magazine offer.",
                     ].join("\n");
-
                     const whatsappURL =
-                        "https://wa.me/" + businessWhatsAppNumber + "?text=" + encodeURIComponent(whatsappMessage);
+                        "https://wa.me/" + BUSINESS_WHATSAPP_NUMBER + "?text=" + encodeURIComponent(whatsappMessage);
 
+                    // Submit as a normal HTML form to a hidden iframe. This avoids fetch/CORS
+                    // response handling and sends the same "payload" parameter expected by doPost(e).
                     try {
-                        // SEND DATA TO GOOGLE APPS SCRIPT
-
-                        const body = new URLSearchParams({
-                            payload: JSON.stringify(submission),
-                        });
-
-                        // no-cors dispatches the request, but cannot confirm
-                        // whether Google Apps Script processed it successfully.
-
-                        const requestPromise = fetch(GOOGLE_SCRIPT_URL, {
-                            method: "POST",
-
-                            mode: "no-cors",
-
-                            headers: {
-                                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-                            },
-
-                            body: body.toString(),
-                        });
-
-                        // OPEN WHATSAPP DIRECTLY
-
-                        // Open a blank tab synchronously during the submit click
-                        // to avoid popup blockers while the request is pending.
-
-                        const whatsappWindow = window.open("about:blank", "_blank");
-
-                        if (!whatsappWindow) {
-                            throw new Error("Please allow pop-ups to open WhatsApp.");
-                        }
-
-                        whatsappWindow.opener = null;
-
-                        whatsappWindow.location.href = whatsappURL;
-
-                        // Wait for the request to finish dispatching.
-
-                        await requestPromise;
+                        const postForm = document.createElement("form");
+                        postForm.method = "POST";
+                        postForm.action = GOOGLE_SCRIPT_URL;
+                        postForm.target = "googleScriptFrame";
+                        postForm.acceptCharset = "UTF-8";
+                        postForm.style.display = "none";
+                        const payload = document.createElement("input");
+                        payload.type = "hidden";
+                        payload.name = "payload";
+                        payload.value = JSON.stringify(submission);
+                        postForm.appendChild(payload);
+                        document.body.appendChild(postForm);
+                        postForm.submit();
+                        postForm.remove();
                     } catch (error) {
-                        console.error("Submission error:", error);
-
-                        alert("Unable to complete the inquiry. Please check your internet connection and try again.");
-
-                        $submitButton.prop("disabled", false).text("SUBMIT");
+                        console.error("Google Apps Script submission could not be dispatched:", error);
+                        statusMessage.textContent =
+                            "We couldn't send the form data. Please try again or contact us directly.";
+                        submitButton.disabled = false;
+                        submitButton.textContent = "SUBMIT";
+                        isSubmitting = false;
+                        return;
                     }
+
+                    // Open WhatsApp directly in the submit gesture so popup blockers are less likely to block it.
+                    const whatsappWindow = window.open(whatsappURL, "_blank");
+                    if (whatsappWindow) whatsappWindow.opener = null;
+                    statusMessage.textContent =
+                        "Your inquiry was sent. WhatsApp has been opened. Please send the pre-filled message there.";
+                    submitButton.textContent = "SUBMITTED";
+                    // Do not wait for a cross-origin Apps Script response: it cannot be read here.
+                    // Re-enable after a short delay so the page never remains stuck on submitting.
+                    setTimeout(function () {
+                        submitButton.disabled = false;
+                        submitButton.textContent = "SUBMIT";
+                        isSubmitting = false;
+                    }, 2500);
                 });
-            });
+                showStep(currentStep);
+            })();
         </script>
     </body>
 </html>
