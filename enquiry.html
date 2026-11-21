@@ -470,14 +470,19 @@
                     });
                 });
 
+               
                 $("#photographyWizardForm").on("submit", async function (e) {
-                    event.preventDefault();
-                    if (isSubmitting || currentStep !== totalSteps || !validateStep(totalSteps)) return;
-                    isSubmitting = true;
-                    submitButton.disabled = true;
-                    submitButton.textContent = "OPENING WHATSAPP...";
-                    statusMessage.textContent = "Sending your inquiry and opening WhatsApp…";
-
+                
+                    e.preventDefault();
+                
+                    if (currentStep !== 6 || !validateStep(currentStep)) {
+                        return;
+                    }
+                
+                    const $submitButton = $("#submitButton");
+                
+                    $submitButton.prop("disabled", true).text("SUBMITTING...");
+                
                     const submission = {
                         event_type: formData.event_type,
                         event_date: formData.event_date,
@@ -485,66 +490,64 @@
                         full_name: formData.full_name,
                         email: formData.email,
                         phone: formData.phone,
-                        submitted_at: new Date().toISOString(),
+                        submitted_at: new Date().toISOString()
                     };
+                
+                    const body = new URLSearchParams({
+                        payload: JSON.stringify(submission)
+                    });
+                
+                    // Open WhatsApp during the original button click
                     const whatsappMessage = [
                         "Hello Memory Portraits By Nandhu,",
                         "",
                         "I would like to enquire about your photography services.",
-                        "",
                         "Name: " + submission.full_name,
                         "Event: " + submission.event_type,
                         "Event Date: " + submission.event_date,
                         "Budget: " + submission.budget,
                         "Email: " + submission.email,
-                        "Phone: " + submission.phone,
-                        "",
-                        "I am interested in your FREE Pre-Wedding Shoot, Cinematic Reel & Luxury Magazine offer.",
+                        "Phone: " + submission.phone
                     ].join("\n");
+                
                     const whatsappURL =
-                        "https://wa.me/" + BUSINESS_WHATSAPP_NUMBER + "?text=" + encodeURIComponent(whatsappMessage);
-
-                    // Submit as a normal HTML form to a hidden iframe. This avoids fetch/CORS
-                    // response handling and sends the same "payload" parameter expected by doPost(e).
+                        "https://wa.me/919751947133?text=" +
+                        encodeURIComponent(whatsappMessage);
+                
+                    const whatsappWindow = window.open(whatsappURL, "_blank");
+                
                     try {
-                       
-
-                        const body = new URLSearchParams({
-                            payload: JSON.stringify(submission)
-                        });
-                        
+                
+                        console.log("Sending request to Google Apps Script...");
+                
                         await fetch(GOOGLE_SCRIPT_URL, {
-                            method: 'POST',
-                            mode: 'no-cors',
+                            method: "POST",
+                            mode: "no-cors",
                             headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                                "Content-Type":
+                                    "application/x-www-form-urlencoded;charset=UTF-8"
                             },
                             body: body.toString()
                         });
+                
+                        console.log("Request dispatched to Google Apps Script.");
+                
+                        alert(
+                            "Request dispatched. Please check Google Apps Script Executions and Google Sheets."
+                        );
+                
                     } catch (error) {
-                        console.error("Google Apps Script submission could not be dispatched:", error);
-                        statusMessage.textContent =
-                            "We couldn't send the form data. Please try again or contact us directly.";
-                        submitButton.disabled = false;
-                        submitButton.textContent = "SUBMIT";
-                        isSubmitting = false;
-                        return;
+                
+                        console.error("Google Script request error:", error);
+                
+                        alert("Unable to dispatch the Google Script request.");
+                
+                    } finally {
+                
+                        $submitButton.prop("disabled", false).text("SUBMIT");
                     }
-
-                    // Open WhatsApp directly in the submit gesture so popup blockers are less likely to block it.
-                    const whatsappWindow = window.open(whatsappURL, "_blank");
-                    if (whatsappWindow) whatsappWindow.opener = null;
-                    statusMessage.textContent =
-                        "Your inquiry was sent. WhatsApp has been opened. Please send the pre-filled message there.";
-                    submitButton.textContent = "SUBMITTED";
-                    // Do not wait for a cross-origin Apps Script response: it cannot be read here.
-                    // Re-enable after a short delay so the page never remains stuck on submitting.
-                    setTimeout(function () {
-                        submitButton.disabled = false;
-                        submitButton.textContent = "SUBMIT";
-                        isSubmitting = false;
-                    }, 2500);
                 });
+
                 showStep(currentStep);
             })();
         </script>
