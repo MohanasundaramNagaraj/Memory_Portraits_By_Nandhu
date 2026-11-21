@@ -507,20 +507,7 @@
                     // Submit as a normal HTML form to a hidden iframe. This avoids fetch/CORS
                     // response handling and sends the same "payload" parameter expected by doPost(e).
                     try {
-                        const postForm = document.createElement("form");
-                        postForm.method = "POST";
-                        postForm.action = GOOGLE_SCRIPT_URL;
-                        postForm.target = "googleScriptFrame";
-                        postForm.acceptCharset = "UTF-8";
-                        postForm.style.display = "none";
-                        const payload = document.createElement("input");
-                        payload.type = "hidden";
-                        payload.name = "payload";
-                        payload.value = JSON.stringify(submission);
-                        postForm.appendChild(payload);
-                        document.body.appendChild(postForm);
-                      //  postForm.submit();
-                        postForm.remove();
+                       
 
                         const body = new URLSearchParams({
                             payload: JSON.stringify(submission)
