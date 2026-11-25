@@ -266,11 +266,12 @@
        Images are hidden until loaded so lazy-loaded photos ease in.
        --------------------------------------------------------------------- */
     function initImageFade() {
+       setTimeout(() => {
         qsa(".gallery-item img").forEach(function (img) {
             function markLoaded() {
-               setTimeout(() => {
+               
                    img.classList.add("is-loaded");
-               }, 300);
+               
             }
             if (img.complete && img.naturalWidth > 0) {
                 markLoaded();
@@ -279,6 +280,7 @@
                 img.addEventListener("error", markLoaded, { once: true });
             }
         });
+       }, 1000);
     }
 
 
