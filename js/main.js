@@ -267,7 +267,11 @@
        --------------------------------------------------------------------- */
     function initImageFade() {
         qsa(".gallery-item img").forEach(function (img) {
-            function markLoaded() { img.classList.add("is-loaded"); }
+            function markLoaded() {
+               setTimeout(() => {
+                   img.classList.add("is-loaded");
+               }, 300);
+            }
             if (img.complete && img.naturalWidth > 0) {
                 markLoaded();
             } else {
