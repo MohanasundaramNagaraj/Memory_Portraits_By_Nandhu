@@ -17,7 +17,7 @@ async function loadHomeGallery() {
 
             const link = document.createElement("a");
             link.className = "gallery-item__link";
-            link.href = `gallery.html?client=${encodeURIComponent(client.name)}`;
+            link.href = `client-gallery.html?client=${encodeURIComponent(client.name)}`;
 
             const img = document.createElement("img");
             img.src = getGalleryImagePath(client.name, images[0]);
